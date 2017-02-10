@@ -1,15 +1,13 @@
 <?php
 
-$params = require(__DIR__ . '/params.php');
-
 $config = [
-    'id' => 'basic',
+    'id' => 'main',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'defaultRoute' => '/notice/index',
     'components' => [
         'request' => [
-            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'LkMKhr0hwym0p_z5-1JzscVmoa_KJor1',
+            'cookieValidationKey' => 'LkMKhr0hwym0p_z5-changeMeoa_KJor1',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -19,14 +17,7 @@ $config = [
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
-        ],
-        'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
-            'useFileTransport' => true,
+            'errorAction' => 'error/view',
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -37,17 +28,18 @@ $config = [
                 ],
             ],
         ],
-        'db' => require(__DIR__ . '/db.php'),
-        /*
+        'db' => require(__DIR__ . '/_db.php'),
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '/<y:\d+>-<m:\d+>/<page:\d+>' => 'notice/index',
+                '/<y:\d+>-<m:\d+>' => 'notice/index',
+                '/' => 'notice/index',
             ],
-        ],
-        */
+        ]
     ],
-    'params' => $params,
+    'params' => require(__DIR__ . '/_params.php'),
 ];
 
 if (YII_ENV_DEV) {
@@ -55,13 +47,6 @@ if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
-        // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['127.0.0.1', '::1'],
-    ];
-
-    $config['bootstrap'][] = 'gii';
-    $config['modules']['gii'] = [
-        'class' => 'yii\gii\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
         //'allowedIPs' => ['127.0.0.1', '::1'],
     ];

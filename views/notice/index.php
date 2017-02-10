@@ -19,6 +19,8 @@ use yii\widgets\Pjax;
 <div class="row">
     <div class="col-md-8">
 
+        <?php Pjax::begin(['id' => 'notices', 'enablePushState' => true]); // leave url to demonstrate ajax ?>
+
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Список за месяц:</h3>
@@ -37,20 +39,34 @@ use yii\widgets\Pjax;
                     </a>
                 </p>
 
-                <?php Pjax::begin(); ?>
+
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'columns' => [
                         'id',
                         'oncreate:datetime',
                         'message',
-                        ['class' => ActionColumn::className(), 'template' => '{delete}']
+                        [
+                            'class' => ActionColumn::className(),
+                            'template' => '{delete}',
+                            'buttons' => [
+                                'delete' => function ($url, $model, $key) {
+                                    return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                                        'title' => \Yii::t('yii', 'Delete'),
+                                        'data-confirm' => \Yii::t('yii', 'Are you sure you want to delete this item?'),
+                                        'data-method' => 'post',
+                                        'data-pjax' => '#notices',
+                                    ]);
+                                }
+                            ]
+                        ]
                     ]
                 ]); ?>
-                <?php Pjax::end(); ?>
+
             </div>
         </div>
 
+        <?php Pjax::end(); ?>
     </div>
 
     <div class="col-md-4">

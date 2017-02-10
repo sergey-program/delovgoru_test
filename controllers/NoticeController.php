@@ -6,7 +6,6 @@ use app\components\DateFilter;
 use app\controllers\extend\AbstractController;
 use app\models\Notice;
 use yii\data\ActiveDataProvider;
-use yii\data\Pagination;
 
 /**
  * Class NoticeController
@@ -28,6 +27,7 @@ class NoticeController extends AbstractController
             ->where('MONTH(oncreate) = "' . $dateFilter->m . '" ')
             ->andWhere('YEAR(oncreate) = "' . $dateFilter->y . '"');
 
+        // page size set to 2 to show pagination in month pagination
         $dataProvider = new ActiveDataProvider(['query' => $query, 'pagination' => ['defaultPageSize' => 2]]);
 
         $notice = new Notice();
@@ -60,21 +60,20 @@ class NoticeController extends AbstractController
     /**
      * @param int $id
      *
-     * @return \yii\web\Response
+     * @return string
      */
     public function actionDelete($id)
     {
-        $y = null;
-        $m = null;
-        $notice = Notice::findOne($id);
+        // here should be isAjax condition, but in task wants isPost
+        if (\Yii::$app->request->isPost) {
+            $notice = $this->loadNotice($id);
 
-        if ($notice) {
-            $y = date('Y', strtotime($notice->oncreate));
-            $m = date('m', strtotime($notice->oncreate));
+            $y = $notice ? date('Y', strtotime($notice->oncreate)) : null;
+            $m = $notice ? date('n', strtotime($notice->oncreate)) : null;
 
             $notice->delete();
-        }
 
-        return $this->redirect(['index', 'y' => $y, 'm' => $m]);
+            return $this->actionIndex($y, $m);
+        }
     }
 }

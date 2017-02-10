@@ -37,10 +37,10 @@ AppAsset::register($this);
     <?php NavBar::begin(['brandLabel' => \Yii::$app->params['siteName'], 'options' => ['class' => 'navbar-inverse navbar-fixed-top']]); ?>
     <?= Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Notices', 'url' => \Yii::$app->homeUrl],
-            ['label' => 'Add notice', 'url' => ['/notice/create']]
-        ]
+//        'items' => [
+//            ['label' => 'Notices', 'url' => \Yii::$app->homeUrl],
+//            ['label' => 'Add notice', 'url' => ['/notice/create']]
+//        ]
     ]); ?>
     <?php NavBar::end(); ?>
 
