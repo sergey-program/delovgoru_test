@@ -37,8 +37,8 @@ AppAsset::register($this);
     <?= Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Notices', 'url' => ['/site/about']],
-            ['label' => 'Add notice', 'url' => ['/site/contact']]
+            ['label' => 'Notices', 'url' => \Yii::$app->homeUrl],
+            ['label' => 'Add notice', 'url' => ['/notice/create']]
         ]
     ]); ?>
     <?php NavBar::end(); ?>
