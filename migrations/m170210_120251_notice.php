@@ -8,7 +8,7 @@ class m170210_120251_notice extends Migration
     {
         $this->createTable('notice', [
             'id' => 'pk',
-            'oncreate' => $this->integer()->unsigned()->notNull(),
+            'oncreate' => $this->timestamp()->notNull(),
             'message' => $this->text()->notNull()
         ]);
 

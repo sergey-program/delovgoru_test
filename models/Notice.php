@@ -42,7 +42,8 @@ class Notice extends AbstractActiveRecord
     {
         try {
             $dateRange = \Yii::$app->params['noticeDateRange'];
-            return mt_rand(strtotime($dateRange['min']), strtotime($dateRange['max']));
+
+            return  date('Y-m-d H:i:s', mt_rand(strtotime($dateRange['min']), strtotime($dateRange['max'])));
         } catch (\Exception $exception) {
             throw new InvalidParamException('Notice Date Range not setuped in config.');
         }
@@ -55,7 +56,7 @@ class Notice extends AbstractActiveRecord
     {
         return [
             'id' => 'ID',
-            'oncreate' => 'On create',
+            'oncreate' => 'Дата создания',
             'message' => 'Текст уведомления'
         ];
     }

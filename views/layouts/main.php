@@ -24,6 +24,7 @@ AppAsset::register($this);
     <meta charset="<?= \Yii::$app->charset; ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <?= Html::csrfMetaTags(); ?>
 
     <?php $this->head(); ?>
