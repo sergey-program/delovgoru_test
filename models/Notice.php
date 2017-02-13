@@ -16,6 +16,11 @@ use yii\base\InvalidParamException;
  */
 class Notice extends AbstractActiveRecord
 {
+    /** @var int */
+    public $cm;
+    /** @var int */
+    public $cy;
+
     /**
      * @return string
      */
@@ -30,6 +35,7 @@ class Notice extends AbstractActiveRecord
     public function rules()
     {
         return [
+            [['cm', 'cy'], 'safe'],
             ['oncreate', 'default', 'value' => $this->assignRandomDate()],
             [['oncreate', 'message'], 'required']
         ];
@@ -43,7 +49,7 @@ class Notice extends AbstractActiveRecord
         try {
             $dateRange = \Yii::$app->params['noticeDateRange'];
 
-            return  date('Y-m-d H:i:s', mt_rand(strtotime($dateRange['min']), strtotime($dateRange['max'])));
+            return date('Y-m-d H:i:s', mt_rand(strtotime($dateRange['min']), strtotime($dateRange['max'])));
         } catch (\Exception $exception) {
             throw new InvalidParamException('Notice Date Range not setuped in config.');
         }

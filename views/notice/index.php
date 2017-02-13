@@ -27,18 +27,27 @@ use yii\widgets\Pjax;
             </div>
 
             <div class="panel-body">
-                <p class="alert text-center">
-                    <a href="<?= Url::to(['notice/index', 'y' => $dateFilter->getPrev('y'), 'm' => $dateFilter->getPrev('m')]); ?>" class="btn btn-default pull-left">
-                        <i class="fa fa-arrow-left"></i> <?= $dateFilter->getPrev(); ?>
-                    </a>
+                <div class="row alert text-center">
+                    <div class="col-md-4">
+                        <?php if ($dateFilter->getPrev()): ?>
+                            <a href="<?= Url::to(['notice/index', 'y' => $dateFilter->getPrev('y'), 'm' => $dateFilter->getPrev('m')]); ?>" class="btn btn-default pull-left">
+                                <i class="fa fa-arrow-left"></i> <?= $dateFilter->getPrev(); ?>
+                            </a>
+                        <?php endif; ?>
+                    </div>
 
-                    <span style="line-height: 34px;"><strong><?= $dateFilter->y; ?>-<?= $dateFilter->m; ?></strong></span>
+                    <div class="col-md-4">
+                        <span style="line-height: 34px;"><strong><?= $dateFilter->y; ?>-<?= $dateFilter->m; ?></strong></span>
+                    </div>
 
-                    <a href="<?= Url::to(['notice/index', 'y' => $dateFilter->getNext('y'), 'm' => $dateFilter->getNext('m')]); ?>" class="btn btn-default pull-right">
-                        <?= $dateFilter->getNext(); ?> <i class="fa fa-arrow-right"></i>
-                    </a>
-                </p>
-
+                    <div class="col-md-4">
+                        <?php if ($dateFilter->getNext()): ?>
+                            <a href="<?= Url::to(['notice/index', 'y' => $dateFilter->getNext('y'), 'm' => $dateFilter->getNext('m')]); ?>" class="btn btn-default pull-right">
+                                <?= $dateFilter->getNext(); ?> <i class="fa fa-arrow-right"></i>
+                            </a>
+                        <?php endif; ?>
+                    </div>
+                </div>
 
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,

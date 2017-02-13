@@ -27,8 +27,8 @@ class NoticeController extends AbstractController
             ->where('MONTH(oncreate) = "' . $dateFilter->m . '" ')
             ->andWhere('YEAR(oncreate) = "' . $dateFilter->y . '"');
 
-        // page size set to 2 to show pagination in month pagination
-        $dataProvider = new ActiveDataProvider(['query' => $query, 'pagination' => ['defaultPageSize' => 2]]);
+        // pagination can be setup (default Yii2 settings) in config
+        $dataProvider = new ActiveDataProvider(['query' => $query]);
 
         $notice = new Notice();
 
